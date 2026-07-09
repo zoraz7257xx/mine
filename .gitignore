@@ -2,5 +2,7 @@ node_modules/
 dist/
 .pnpm-store/
 *.log
+__pycache__/
+*.pyc
 portfolio-home.png
 portfolio-projects.png
