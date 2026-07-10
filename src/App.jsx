@@ -54,6 +54,38 @@ function setPath(source, path, value) {
   return next;
 }
 
+function withBase(path) {
+  if (!path || typeof path !== "string") {
+    return path;
+  }
+
+  if (!path.startsWith("/")) {
+    return path;
+  }
+
+  const base = import.meta.env.BASE_URL || "/";
+  return `${base.replace(/\/$/, "")}${path}`;
+}
+
+function mapAssetPaths(value) {
+  if (Array.isArray(value)) {
+    return value.map(mapAssetPaths);
+  }
+
+  if (!value || typeof value !== "object") {
+    return withBase(value);
+  }
+
+  return Object.fromEntries(
+    Object.entries(value).map(([key, item]) => {
+      if (["image", "images", "previewImages", "src", "poster", "videos"].includes(key)) {
+        return [key, mapAssetPaths(item)];
+      }
+      return [key, item];
+    }),
+  );
+}
+
 function EditableText({
   as: Tag = "span",
   editMode,
@@ -121,6 +153,10 @@ function App() {
     workCategories: pageWorkCategories,
     strengths: pageStrengths,
   } = content;
+  const normalizedWorkCategories = useMemo(
+    () => mapAssetPaths(pageWorkCategories || []),
+    [pageWorkCategories],
+  );
   const { contact } = page;
 
   const edit = (path, value) => {
@@ -152,7 +188,7 @@ function App() {
   const activeArchive =
     activeArchivePath === null
       ? null
-      : pageWorkCategories[activeArchivePath.categoryIndex]?.children?.[activeArchivePath.childIndex] || null;
+      : normalizedWorkCategories[activeArchivePath.categoryIndex]?.children?.[activeArchivePath.childIndex] || null;
   const activeMediaItems = activeArchive
     ? [
         ...(activeArchive.videos || []).map((video, index) => ({
@@ -324,12 +360,12 @@ function App() {
             <div className="heroMediaShell">
               <video
                 className="heroVideo"
-                src="/assets/hero-video.mp4"
+                src={withBase("/assets/hero-video.mp4")}
                 autoPlay
                 muted
                 loop
                 playsInline
-                poster="/assets/storyboard.png"
+                poster={withBase("/assets/storyboard.png")}
               />
               <div className="heroMediaOverlay" />
             </div>
@@ -519,7 +555,7 @@ function App() {
           </div>
 
           <div className="container workCarouselGroups">
-            {pageWorkCategories.map((category, categoryIndex) => (
+            {normalizedWorkCategories.map((category, categoryIndex) => (
               <section className={`workCarouselGroup workGroup${categoryIndex + 1}`} key={categoryIndex} aria-label={category.title}>
                 <div className="workCarouselHeader">
                   <div>
@@ -562,13 +598,13 @@ function App() {
                           {child.previewLayout === "nineGrid" ? (
                             previewImages.slice(0, 9).map((image, imageIndex) => (
                               <span key={image}>
-                                <img src={image} alt={`${child.title} ${imageIndex + 1}`} loading="lazy" />
+                                <img src={withBase(image)} alt={`${child.title} ${imageIndex + 1}`} loading="lazy" />
                               </span>
                             ))
                           ) : (
                             <>
                               {child.videos?.length ? <span className="videoPill">VIDEO</span> : null}
-                              <img src={cover} alt={child.title} loading="lazy" />
+                              <img src={withBase(cover)} alt={child.title} loading="lazy" />
                             </>
                           )}
                         </button>
@@ -788,7 +824,10 @@ function App() {
                       aria-label={`查看 ${item.title || activeArchive.title}`}
                     >
                       {item.type === "video" ? <span className="videoPill">VIDEO</span> : null}
-                      <img src={item.poster || item.src} alt={item.title || `${activeArchive.title} 材料 ${index + 1}`} />
+                      <img
+                        src={withBase(item.poster || item.src)}
+                        alt={item.title || `${activeArchive.title} 材料 ${index + 1}`}
+                      />
                       <span className="archiveMediaThumbMeta">
                         <strong>{item.title || `${activeArchive.title} 材料`}</strong>
                         <small>{String(index + 1).padStart(2, "0")}</small>
@@ -803,9 +842,15 @@ function App() {
               <div className="archiveLightbox" onClick={() => setActiveMediaIndex(null)}>
                 <figure onClick={(event) => event.stopPropagation()}>
                   {activeMedia.type === "video" ? (
-                    <video src={activeMedia.src} poster={activeMedia.poster} controls autoPlay preload="metadata" />
+                    <video
+                      src={withBase(activeMedia.src)}
+                      poster={withBase(activeMedia.poster)}
+                      controls
+                      autoPlay
+                      preload="metadata"
+                    />
                   ) : (
-                    <img src={activeMedia.src} alt={activeMedia.title || activeArchive.title} />
+                    <img src={withBase(activeMedia.src)} alt={activeMedia.title || activeArchive.title} />
                   )}
                   <figcaption>{activeMedia.title || activeArchive.title}</figcaption>
                 </figure>
