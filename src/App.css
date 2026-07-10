@@ -3231,3 +3231,415 @@ body {
 .editorDock button:hover {
   background: rgba(103, 239, 162, 0.24);
 }
+
+/* Final mobile overrides: keep the later desktop refresh from breaking phone layouts. */
+@media (max-width: 1180px) {
+  .heroContent {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+    min-height: auto;
+    padding-bottom: 36px;
+  }
+
+  .hero .eyebrow,
+  .hero h1,
+  .heroAside,
+  .heroMediaShell {
+    grid-column: 1;
+  }
+
+  .heroAside {
+    min-height: 0;
+    max-width: none;
+    padding: 22px 0 0;
+    border-top: 1px solid rgba(5, 5, 5, 0.08);
+    border-bottom: 0;
+  }
+
+  .workCarouselGroup {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .workCarouselHeader {
+    min-height: 0;
+    padding-right: 0;
+  }
+
+  .contactInner::after {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .container,
+  .nav {
+    width: min(100% - 24px, 1700px);
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 10px 0 18px;
+  }
+
+  .nav {
+    top: 10px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .navCta {
+    margin-left: 0;
+    padding: 11px 16px;
+    font-size: 12px;
+  }
+
+  .brand {
+    min-width: 0;
+    padding-right: 10px;
+  }
+
+  .brand strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .heroContent {
+    row-gap: 18px;
+    padding-top: 86px;
+    padding-bottom: 20px;
+  }
+
+  .hero .eyebrow {
+    font-size: 15px;
+  }
+
+  .hero h1 {
+    max-width: none;
+    font-size: clamp(38px, 10.8vw, 56px);
+    line-height: 1.04;
+  }
+
+  .heroAside {
+    gap: 0;
+    padding-top: 18px;
+  }
+
+  .heroLead {
+    font-size: 16px;
+    line-height: 1.58;
+  }
+
+  .heroTagList {
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .heroTagList span {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .heroActions {
+    margin-top: 18px;
+  }
+
+  .heroActions .primaryButton {
+    width: 100%;
+    min-height: 50px;
+    padding: 0 18px;
+  }
+
+  .heroMediaShell {
+    min-height: 260px;
+    border-radius: 26px;
+  }
+
+  .profileSection,
+  .section,
+  .contactSection {
+    padding: 88px 0;
+  }
+
+  .profileGrid {
+    gap: 24px;
+  }
+
+  .portraitPanel {
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .portraitMark {
+    height: 92px;
+    font-size: 42px;
+  }
+
+  .portraitPanel p {
+    font-size: 28px;
+  }
+
+  .profileContent h2,
+  .sectionHeader h2,
+  .contactInner h2 {
+    font-size: clamp(30px, 8vw, 42px);
+    line-height: 1.14;
+  }
+
+  .sectionIntro,
+  .sectionHeader p,
+  .contactLines span {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .metricGrid,
+  .strengthGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .metricCard {
+    padding: 18px 16px;
+  }
+
+  .metricCard strong {
+    font-size: 28px;
+  }
+
+  .experienceItem,
+  .strengthCard {
+    padding: 18px;
+  }
+
+  .experienceItem div {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .experienceItem div span {
+    white-space: normal;
+  }
+
+  .workCarouselGroups {
+    gap: 24px;
+  }
+
+  .workCarouselGroup {
+    border-radius: 20px;
+    padding: 18px;
+  }
+
+  .workCarouselGroup::before,
+  .workCarouselGroup::after {
+    display: none;
+  }
+
+  .workCarouselHeader {
+    gap: 0;
+  }
+
+  .workCarouselHeader .archiveLabel {
+    margin-bottom: 14px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .workCarouselHeader h3 {
+    font-size: clamp(34px, 10vw, 48px);
+    line-height: 1;
+  }
+
+  .workCarouselHeader p {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .workCarouselHeader > strong {
+    margin-top: 18px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  .workCarousel {
+    grid-auto-columns: minmax(252px, 82vw);
+    gap: 14px;
+    padding: 16px 2px 6px;
+  }
+
+  .workCard,
+  .workCard:nth-child(2n),
+  .workCard:nth-child(3n) {
+    min-height: 0;
+    transform: none;
+  }
+
+  .workCardMedia {
+    margin: 12px 12px 0;
+    border-radius: 18px;
+  }
+
+  .workCardBody {
+    padding: 16px 16px 8px;
+  }
+
+  .workCardBody h4 {
+    font-size: 22px;
+  }
+
+  .workCardBody p {
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-line-clamp: 5;
+  }
+
+  .workCardOpen {
+    margin: 10px 16px 16px;
+    min-height: 42px;
+    font-size: 12px;
+  }
+
+  .archiveModal {
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .archiveModalPanel {
+    width: 100%;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .archiveModalHeader,
+  .archiveModalBody {
+    padding: 16px;
+  }
+
+  .archiveModalHeader {
+    gap: 14px;
+  }
+
+  .archiveModalHeader h2 {
+    font-size: clamp(28px, 8vw, 36px);
+  }
+
+  .archiveModalHeader p,
+  .archiveBrief p,
+  .archiveBrief li {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .archiveBackHint {
+    max-width: none;
+    width: 100%;
+    border-radius: 12px !important;
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+  }
+
+  .archiveModalBody {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .archiveBrief {
+    position: static;
+    padding: 16px;
+  }
+
+  .archiveMediaIntro {
+    gap: 6px;
+  }
+
+  .archiveMediaGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .archiveMediaThumbMeta {
+    padding: 10px;
+  }
+
+  .archiveMediaThumbMeta strong {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .archiveLightbox {
+    padding: 10px;
+  }
+
+  .archiveLightbox figure {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .contactSection {
+    min-height: auto;
+  }
+
+  .contactLines {
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .contactLines a {
+    overflow-wrap: anywhere;
+    font-size: clamp(20px, 7vw, 30px);
+  }
+
+  .contactActions {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .contactActions .primaryButton,
+  .contactActions .ghostButton {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .editorDock {
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    left: 12px;
+    width: auto;
+    max-width: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .editorDock div {
+    display: none;
+  }
+
+  .editorDock button {
+    min-height: 36px;
+    min-width: 0;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .editorDock .subtleButton {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .navCta {
+    display: none;
+  }
+
+  .archiveMediaGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .workCarousel {
+    grid-auto-columns: minmax(232px, 88vw);
+  }
+}
